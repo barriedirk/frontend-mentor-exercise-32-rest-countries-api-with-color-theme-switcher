@@ -37,7 +37,7 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/sass/styles.scss"
             ]
           },
           "configurations": {
@@ -92,7 +92,7 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/sass/styles.scss"
             ]
           }
         }

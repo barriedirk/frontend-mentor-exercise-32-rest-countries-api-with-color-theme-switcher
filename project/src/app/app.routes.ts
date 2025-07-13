@@ -1,3 +1,13 @@
 import { Routes } from '@angular/router';
 
-export const routes: Routes = [];
+import { PageNotFound } from '@pages/page-not-found/page-not-found';
+import { Main } from './pages/main/main';
+
+export const routes: Routes = [
+  { path: '', component: Main },
+  {
+    path: 'detail/:id',
+    loadComponent: () => import('./pages/detail/detail').then((m) => m.Detail),
+  },
+  { path: '**', component: PageNotFound },
+];
