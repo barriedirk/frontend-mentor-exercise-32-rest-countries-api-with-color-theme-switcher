@@ -1,0 +1,51 @@
+.input {
+  &-group {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    align-items: stretch;
+
+    & > .form-control {
+      flex: 1 1 0;
+      width: 1%;
+      min-width: 0;
+    }
+  }
+
+  &-group-text {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  &-custom-select {
+  }
+}
+
+.select-button {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  align-items: stretch;
+  padding: 5px;
+
+  .selected-value {
+    flex: 1 1 0;
+    width: 1%;
+    min-width: 0;
+  }
+
+  .select__icon {
+    display: flex;
+    align-items: center;
+    padding: 2px;
+
+    svg {
+      width: 15px;
+      height: 15px;
+      aspect-ratio: 7.5 / 4.3;
+    }
+  }
+}

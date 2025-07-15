@@ -1,0 +1,40 @@
+@use '../../../sass/utils/mixins' as *;
+
+.search {
+  &__form {
+    padding-inline: 15px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  &__icon {
+    width: 15px;
+    aspect-ratio: 1 / 1;
+  }
+
+  &__text {
+    @include text-preset-6(regular);
+    padding: 5px;
+  }
+
+  .input-group {
+    padding: 5px 27px;
+    min-height: 48px;
+  }
+
+  .input-custom-select {
+    min-height: 48px;
+    width: 200px;
+
+    display: flex;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 50em) {
+    &__text {
+      @include text-preset-5(regular);
+    }
+  }
+}

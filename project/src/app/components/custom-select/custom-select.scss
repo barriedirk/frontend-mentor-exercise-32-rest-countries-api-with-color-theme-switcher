@@ -1,0 +1,72 @@
+@use '../../../sass/utils/mixins' as *;
+
+.custom-select {
+  position: relative;
+  min-height: 48px;
+  width: 200px;
+
+  &__text {
+    @include text-preset-6(regular);
+    padding: 5px;
+  }
+
+  &__expand {
+    width: 12px;
+    aspect-ratio: 1 / 1;
+  }
+
+  .focused {
+    font-weight: var(--fw-bold);
+    background-color: var(--bg-selected);
+  }
+
+  &__trigger {
+    min-height: 48px;
+    padding: 5px 27px;
+    width: 200px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &:focus {
+      outline: 1px solid var(--border-outline);
+      outline-offset: 2px;
+    }
+  }
+
+  &__options {
+    position: absolute;
+    top: calc(100% + 4px);
+    width: 100%;
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 20px;
+    list-style: none;
+
+    li {
+      padding-block: 0.5rem;
+      padding-inline: 27px;
+      cursor: pointer;
+
+      &.selected {
+        font-weight: var(--fw-bold);
+        background-color: var(--bg-selected);
+      }
+
+      &:hover,
+      &:focus {
+        font-weight: var(--fw-bold);
+        background-color: var(--bg-selected);
+        outline: none;
+      }
+    }
+  }
+
+  @media screen and (min-width: 50em) {
+    &__text {
+      @include text-preset-5(regular);
+    }
+  }
+}

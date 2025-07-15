@@ -1,4 +1,4 @@
-.text-preset-1 {
+@mixin text-preset-1 {
   font-family: var(--ff);
   font-weight: var(--fw-extrabold);
   font-size: var(--fs-32);
@@ -6,7 +6,7 @@
   letter-spacing: 0;
 }
 
-.text-preset-2 {
+@mixin text-preset-2 {
   font-family: var(--ff);
   font-weight: var(--fw-extrabold);
   font-size: var(--fs-24);
@@ -14,7 +14,7 @@
   letter-spacing: 0;
 }
 
-.text-preset-3 {
+@mixin text-preset-3 {
   font-family: var(--ff);
   font-weight: var(--fw-extrabold);
   font-size: var(--fs-18);
@@ -22,56 +22,47 @@
   letter-spacing: 0;
 }
 
-.text-preset-4 {
+@mixin text-preset-4($weight) {
   font-family: var(--ff);
   font-size: var(--fs-16);
   line-height: 2;
   letter-spacing: 0;
 
-  &.semibold {
+  @if $weight == semibold {
     font-weight: var(--fw-semibold);
-  }
-
-  &.light {
+  } @else if $weight == light {
     font-weight: var(--fw-light);
   }
 }
 
-.text-preset-5 {
+@mixin text-preset-5($weight) {
   font-family: var(--ff);
   font-size: var(--fs-14);
   letter-spacing: 0;
 
-  &.regular {
+  @if $weight == extrabold {
+    font-weight: var(--fw-extrabold);
+    line-height: 1.2;
+  } @else if $weight == regular {
     font-weight: var(--fw-normal);
     line-height: 1.45;
-  }
-
-  &.light {
+  } @else if $weight == light {
     font-weight: var(--fw-light);
     line-height: 2.25;
   }
 }
 
-.text-preset-6 {
+@mixin text-preset-6($weight) {
   font-family: var(--ff);
   font-size: var(--fs-12);
   line-height: 1.35;
   letter-spacing: 0;
 
-  &.semibold {
+  @if $weight == semibold {
     font-weight: var(--fw-semibold);
-  }
-
-  &.regular {
+  } @else if $weight == regular {
     font-weight: var(--fw-normal);
-  }
-
-  &.light {
+  } @else if $weight == light {
     font-weight: var(--fw-light);
   }
-}
-
-.brd-r-5 {
-  border-radius: 5px;
 }

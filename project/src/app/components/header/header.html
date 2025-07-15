@@ -1,1 +1,11 @@
-<p>header works!</p>
+<section class="header flex items-center justify-between">
+  <h1 class="header_title txt-primary">Where in the world?</h1>
+
+  <button class="header__toggle flex items-center justify-center gap-2" (click)="onToggle()" type="button">
+    <svg class="header__icon" aria-label="icon toogle" role="img">
+      <use href="assets/icons/sprite.svg#sun"></use>
+    </svg>
+
+    <span class="header__toggle--text txt-primary">Light Mode</span>
+  </button>
+</section>

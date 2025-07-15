@@ -8,4 +8,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './header.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Header {}
+export class Header {
+  onToggle() {
+    //@todo, implement
+    console.log('@todo');
+  }
+}

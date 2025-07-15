@@ -36,9 +36,7 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/sass/styles.scss"
-            ]
+            "styles": ["src/sass/styles.scss"]
           },
           "configurations": {
             "production": {
@@ -85,15 +83,13 @@
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/assets",s
+              "src/assets",
               {
                 "glob": "**/*",
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/sass/styles.scss"
-            ]
+            "styles": ["src/sass/styles.scss"]
           }
         }
       }

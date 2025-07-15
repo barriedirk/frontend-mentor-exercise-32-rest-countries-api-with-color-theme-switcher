@@ -1,12 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
+import { ResultGrid } from '@components/result-grid/result-grid';
+import { SearchToolbar } from '@components/search-toolbar/search-toolbar';
+
 @Component({
   selector: 'app-main',
-  imports: [],
+  standalone: true,
+  imports: [SearchToolbar, ResultGrid],
   templateUrl: './main.html',
   styleUrl: './main.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Main {
-
-}
+export class Main {}
