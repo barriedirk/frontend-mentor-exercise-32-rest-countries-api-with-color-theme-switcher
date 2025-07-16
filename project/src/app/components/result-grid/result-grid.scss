@@ -1,0 +1,29 @@
+@use '../../../sass/utils/mixins' as *;
+
+.result-grid {
+  width: 100%;
+  padding: 30px 15px;
+  display: grid;
+  gap: 62px;
+  row-gap: 40px;
+  grid-template-columns: repeat(1, 264px);
+  justify-content: center;
+}
+
+@media screen and (min-width: 38em) {
+  .result-grid {
+    grid-template-columns: repeat(2, 264px);
+  }
+}
+
+@media screen and (min-width: 59em) {
+  .result-grid {
+    grid-template-columns: repeat(3, 264px);
+  }
+}
+
+@media screen and (min-width: 80em) {
+  .result-grid {
+    grid-template-columns: repeat(4, 264px);
+  }
+}

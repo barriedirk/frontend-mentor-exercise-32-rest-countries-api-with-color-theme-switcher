@@ -1,0 +1,5 @@
+@use '../../../sass/utils/mixins' as *;
+
+.detail {
+  @include max-container;
+}

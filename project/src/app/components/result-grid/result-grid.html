@@ -1,3 +1,13 @@
 <div class="result-grid">
-  <h2>GRID</h2>
+  @for (country of mockup; track country.name) {
+    <app-country-card
+      class="result-grid__card"
+      [cca3]="country.cca3"
+      [href]="country.href"
+      [imageFlag]="country.imageFlag"
+      [name]="country.name"
+      [population]="country.population"
+      [region]="country.region"
+      [capital]="country.capital" />
+  }
 </div>

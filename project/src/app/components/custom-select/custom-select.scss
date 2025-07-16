@@ -3,7 +3,8 @@
 .custom-select {
   position: relative;
   min-height: 48px;
-  width: 200px;
+  width: 100%;
+  max-width: 200px;
 
   &__text {
     @include text-preset-6(regular);

@@ -1,3 +1,9 @@
+@mixin max-container {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+}
+
 @mixin text-preset-1 {
   font-family: var(--ff);
   font-weight: var(--fw-extrabold);
@@ -43,6 +49,9 @@
   @if $weight == extrabold {
     font-weight: var(--fw-extrabold);
     line-height: 1.2;
+  } @else if $weight == semibold {
+    font-weight: var(--fw-semibold);
+    line-height: 1.6;
   } @else if $weight == regular {
     font-weight: var(--fw-normal);
     line-height: 1.45;

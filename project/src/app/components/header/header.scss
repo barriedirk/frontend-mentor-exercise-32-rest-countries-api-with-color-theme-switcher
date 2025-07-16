@@ -1,7 +1,8 @@
 @use '../../../sass/utils/mixins' as *;
 
 .header {
-  width: 100%;
+  @include max-container;
+
   height: 80px;
   padding-inline: 15px;
 

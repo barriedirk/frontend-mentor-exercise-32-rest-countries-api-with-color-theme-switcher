@@ -1,0 +1,23 @@
+<article class="country-card background--inner txt-primary" [attr.aria-labelledby]="name + '-heading'" role="group">
+  <a class="country-card__link" [attr.aria-label]="'View details for ' + name" [routerLink]="href" tabindex="0">
+    <img class="country-card__flag" [alt]="imageFlag ? 'Flag of ' + name : name" [src]="imageFlag" loading="lazy" />
+
+    <div class="country-card__body">
+      <h2 class="country-card__name" [id]="name + '-heading'">{{ name }}</h2>
+      <ul class="country-card__info flex flex-col gap-[5px]">
+        <li>
+          <strong>Population:</strong>
+          {{ population | number: '1.0-0' }}
+        </li>
+        <li>
+          <strong>Region:</strong>
+          {{ region }}
+        </li>
+        <li>
+          <strong>Capital:</strong>
+          {{ capital }}
+        </li>
+      </ul>
+    </div>
+  </a>
+</article>

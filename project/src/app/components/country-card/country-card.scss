@@ -1,0 +1,31 @@
+@use '../../../sass/utils/mixins' as *;
+
+.country-card {
+  width: 100%;
+  max-width: 265px;
+
+  &__body {
+    padding: 28px;
+  }
+
+  &__flag {
+    width: 100%;
+    aspect-ratio: 264 / 160;
+    background: red;
+  }
+
+  &__name {
+    @include text-preset-3;
+    margin-bottom: 20px;
+  }
+  &__info {
+    li {
+      @include text-preset-5(light);
+      line-height: 0;
+    }
+
+    strong {
+      @include text-preset-5(semibold);
+    }
+  }
+}

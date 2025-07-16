@@ -24,12 +24,28 @@
     min-height: 48px;
   }
 
-  .input-custom-select {
+  &__selector {
     min-height: 48px;
     width: 200px;
 
     display: flex;
     align-items: center;
+  }
+
+  @media screen and (min-width: 48em) {
+    &__form {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &__text--group {
+      flex: 0 0 480px;
+    }
+
+    &__selector {
+      flex: 0 0 200px;
+    }
   }
 
   @media screen and (min-width: 50em) {
