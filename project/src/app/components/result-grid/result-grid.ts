@@ -1,23 +1,21 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  Signal,
+  signal,
   computed,
   effect,
   inject,
   Input,
   OnInit,
-  Signal,
-  signal,
 } from '@angular/core';
 
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { CountryCard } from '@components/country-card/country-card';
-
 import { RestCountries } from '@services/restcountries';
-
 import { Country } from '@interfaces/country';
 import { FieldsSearch } from '@interfaces/fields-search';
-
-import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-result-grid',
@@ -30,78 +28,85 @@ import { tap } from 'rxjs';
 export class ResultGrid implements OnInit {
   @Input() searchValues!: Signal<FieldsSearch>;
 
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
   private countriesService = inject(RestCountries);
 
-  countries = signal<Country[]>([]);
-  // pagedCountries = signal<Country[]>([]);
-
-  pagedCountries = computed(() => {
-    const countriesList = this.countries();
-    const start = (this.currentPage - 1) * this.pageSize;
-    const end = start + this.pageSize;
-
-    return countriesList.slice(start, end);
-  });
-  currentPage = 1;
+  private allCountries = signal<Country[]>([]);
+  currentPage = signal(1);
   pageSize = 12;
 
-  get totalPages(): number {
-    return Math.ceil(this.countries().length / this.pageSize);
-  }
+  countries = computed(() => {
+    const { filterByName, filterByRegion } = this.searchValues();
+
+    return this.allCountries().filter((country) => {
+      const matchesRegion = !filterByRegion || country.region === filterByRegion;
+      const matchesName =
+        !filterByName || country.name.common.toLowerCase().startsWith(filterByName.trim().toLowerCase());
+
+      return matchesRegion && matchesName;
+    });
+  });
+
+  totalPages = computed(() => Math.ceil(this.countries().length / this.pageSize));
+
+  pagedCountries = computed(() => {
+    const start = (this.currentPage() - 1) * this.pageSize;
+    const end = start + this.pageSize;
+
+    return this.countries().slice(start, end);
+  });
 
   constructor() {
     effect(() => {
-      this.onFilter(this.searchValues());
+      this.searchValues();
+      this.currentPage.set(1);
+      // this.updateQueryParams({ filterByName, filterByRegion, page: 1 });
+      this.updateQueryParams({ page: 1 });
     });
   }
 
   ngOnInit() {
-    this.onFilter({ filterByName: '', filterByRegion: '' });
+    this.route.queryParams.subscribe((params) => {
+      const name = params['filterByName'] || '';
+      const region = params['filterByRegion'] || '';
+      const page = parseInt(params['page'], 10) || 1;
+
+      // this.currentPage.set(page);
+      // this.searchForm.setValue({ filterByName: name, filterByRegion: region }, { emitEvent: false });
+      // this.onFilter({ filterByName: name, filterByRegion: region });
+    });
+
+    this.countriesService.fetchCountries().subscribe((data) => this.allCountries.set(data));
   }
 
   nextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.paginate();
+    if (this.currentPage() < this.totalPages()) {
+      this.currentPage.update((n) => n + 1);
+
+      this.updateQueryParams({
+        ...this.searchValues(),
+        page: this.currentPage(),
+      });
     }
   }
 
   prevPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      // this.paginate();
+    if (this.currentPage() > 1) {
+      this.currentPage.update((n) => n - 1);
+
+      this.updateQueryParams({
+        ...this.searchValues(),
+        page: this.currentPage(),
+      });
     }
   }
 
-  onFilter({ filterByName, filterByRegion }: FieldsSearch) {
-    this.countriesService
-      .fetchCountries()
-      .pipe(
-        tap((countries) => {
-          if (filterByRegion !== '') {
-            countries = countries.filter((country) => country.region === filterByRegion);
-          }
-
-          if (filterByName !== '') {
-            countries = countries.filter((country) =>
-              country.name.common.toLowerCase().startsWith(filterByName.trim().toLowerCase()),
-            );
-          }
-
-          console.log(countries);
-          this.countries.set(countries);
-          this.currentPage = 1;
-
-          // this.paginate();
-        }),
-      )
-      .subscribe();
+  updateQueryParams(params: { filterByName?: string; filterByRegion?: string; page?: number }) {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: params,
+      queryParamsHandling: 'merge', // keeps existing params unless overwritten
+    });
   }
-
-  // paginate() {
-  //   const start = (this.currentPage - 1) * this.pageSize;
-  //   const end = start + this.pageSize;
-
-  //   this.pagedCountries.set(this.countries().slice(start, end));
-  // }
 }

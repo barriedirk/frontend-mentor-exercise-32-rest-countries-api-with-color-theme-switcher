@@ -22,7 +22,7 @@ export class SearchToolbar implements OnInit {
 
   @Output() formChanged = new EventEmitter<FieldsSearch>();
 
-  regions: string[] = ['Africa', 'America', 'Asia', 'Europe', 'Oceania'];
+  regions: string[] = ['All', 'Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
   searchForm: FormGroup;
 
   private destroy$ = inject(Destroy);

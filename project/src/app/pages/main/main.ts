@@ -27,7 +27,7 @@ export class Main {
   onFormChanged({ filterByName, filterByRegion }: FieldsSearch) {
     this.searchValuesForm.set({
       filterByName,
-      filterByRegion,
+      filterByRegion: filterByRegion === 'All' ? '' : filterByRegion,
     });
   }
 }

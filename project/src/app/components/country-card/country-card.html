@@ -1,4 +1,8 @@
-<article class="country-card background--inner txt-primary" [attr.aria-labelledby]="name + '-heading'" role="group">
+<article
+  class="country-card background--inner txt-primary"
+  [attr.aria-labelledby]="name + '-heading'"
+  appFadeInOnView
+  role="group">
   <a
     class="country-card__link"
     [attr.aria-label]="'View details for ' + name"

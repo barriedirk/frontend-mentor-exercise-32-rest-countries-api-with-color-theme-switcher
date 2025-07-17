@@ -2,11 +2,12 @@ import { DecimalPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, Output } from '@angular/core';
 
 import { RouterLink } from '@angular/router';
+import { FadeInOnView } from '@directives/fade-in-on-view';
 
 @Component({
   selector: 'app-country-card',
   standalone: true,
-  imports: [DecimalPipe, RouterLink],
+  imports: [DecimalPipe, RouterLink, FadeInOnView],
   templateUrl: './country-card.html',
   styleUrl: './country-card.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

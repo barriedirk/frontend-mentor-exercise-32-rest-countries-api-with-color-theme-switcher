@@ -11,7 +11,7 @@
       [capital]="country.capital[0]" />
   } @empty {
     <div class="result-grid__empty background--inner txt-primary flex flex-col items-center justify-center">
-      <svg class="icon icon--empty" aria-hidden="true">
+      <svg class="icon" aria-hidden="true">
         <use href="assets/icons/sprite.svg#search" />
       </svg>
       <h2 class="text-preset-2 txt-primary mb-5">🤔 No results found.</h2>
@@ -26,8 +26,8 @@
 
 @if (pagedCountries().length > 0) {
   <nav class="result-grid__pagination txt-primary flex flex-row items-center justify-center gap-5 p-2">
-    <button class="background--inner p-4" [disabled]="currentPage === 1" (click)="prevPage()">Previous</button>
-    <span>Page {{ currentPage }} of {{ totalPages }}</span>
-    <button class="background--inner p-4" [disabled]="currentPage === totalPages" (click)="nextPage()">Next</button>
+    <button class="background--inner p-4" [disabled]="currentPage() === 1" (click)="prevPage()">Previous</button>
+    <span>Page {{ currentPage() }} of {{ totalPages() }}</span>
+    <button class="background--inner p-4" [disabled]="currentPage() === totalPages()" (click)="nextPage()">Next</button>
   </nav>
 }
