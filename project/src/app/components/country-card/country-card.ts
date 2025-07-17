@@ -13,7 +13,7 @@ import { RouterLink } from '@angular/router';
 })
 export class CountryCard {
   @Input() cca3!: string;
-  @Input() href!: string;
+  @Input() alt!: string;
   @Input() imageFlag!: string;
   @Input() name!: string;
   @Input() population!: number;

@@ -1,26 +1,22 @@
 <section class="search">
-  <form class="search__form">
+  <form class="search__form" [formGroup]="searchForm">
     <div class="search__text--group input-group background--inner txt-primary brd-r-5 gap-2">
       <span class="input-group-text">
         <svg class="search__icon" aria-label="icon toogle" role="img">
           <use href="assets/icons/sprite.svg#glass"></use>
         </svg>
       </span>
-      <input class="search__text form-control" type="text" placeholder="Search for country" maxlength="40" />
+      <input
+        class="search__text form-control"
+        type="text"
+        placeholder="Search for country"
+        maxlength="40"
+        formControlName="filterByName" />
     </div>
 
     <app-custom-select
-      class="search__selector"
-      [(value)]="selectedCountry"
-      [options]="['Africa', 'America', 'Asia', 'Europe', 'Oceania']"
+      [options]="regions"
+      formControlName="filterByRegion"
       placeholder="Filter by Region"></app-custom-select>
-
-    <!-- <form [formGroup]="form">
-  <app-custom-select
-    formControlName="country"
-    [options]="['USA', 'Canada', 'Germany']"
-    placeholder="Select a country"
-  ></app-custom-select>
-</form> -->
   </form>
 </section>

@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+
+import { FieldsSearch } from '@interfaces/fields-search';
 
 import { ResultGrid } from '@components/result-grid/result-grid';
 import { SearchToolbar } from '@components/search-toolbar/search-toolbar';
@@ -11,4 +13,21 @@ import { SearchToolbar } from '@components/search-toolbar/search-toolbar';
   styleUrl: './main.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Main {}
+export class Main {
+  filterByName: string = '';
+  filterByRegion: string = '';
+
+  private searchValuesForm = signal<FieldsSearch>({
+    filterByName: '',
+    filterByRegion: '',
+  });
+
+  readonly searchValues = computed(() => this.searchValuesForm());
+
+  onFormChanged({ filterByName, filterByRegion }: FieldsSearch) {
+    this.searchValuesForm.set({
+      filterByName,
+      filterByRegion,
+    });
+  }
+}

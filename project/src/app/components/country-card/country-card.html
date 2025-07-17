@@ -1,6 +1,10 @@
 <article class="country-card background--inner txt-primary" [attr.aria-labelledby]="name + '-heading'" role="group">
-  <a class="country-card__link" [attr.aria-label]="'View details for ' + name" [routerLink]="href" tabindex="0">
-    <img class="country-card__flag" [alt]="imageFlag ? 'Flag of ' + name : name" [src]="imageFlag" loading="lazy" />
+  <a
+    class="country-card__link"
+    [attr.aria-label]="'View details for ' + name"
+    [routerLink]="'/detail/' + cca3"
+    tabindex="0">
+    <img class="country-card__flag" [alt]="alt" [src]="imageFlag" loading="lazy" />
 
     <div class="country-card__body">
       <h2 class="country-card__name" [id]="name + '-heading'">{{ name }}</h2>

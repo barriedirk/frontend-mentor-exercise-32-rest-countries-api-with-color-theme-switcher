@@ -20,6 +20,18 @@ export class RestCountries {
 
     return this.http.get<Country[]>(`${this.base}independent?status=true`).pipe(
       map((apiArray) => apiArray.map(normalizeCountry)),
+      map((apiArray) => {
+        return apiArray.sort((a, b) => {
+          const nameA = a.name.common.toUpperCase();
+          const nameB = b.name.common.toUpperCase();
+
+          if (nameA < nameB) return -1;
+          if (nameA > nameB) return 1;
+
+          return 0;
+        });
+      }),
+
       tap((apiArray) => this.countriesSubject.next(apiArray)),
     );
   }
