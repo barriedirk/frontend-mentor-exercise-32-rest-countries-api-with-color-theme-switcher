@@ -7,7 +7,7 @@ export const routes: Routes = [
   { path: '', component: Main },
   { path: 'search', component: Main },
   {
-    path: 'detail/:id',
+    path: 'detail/:cca3',
     loadComponent: () => import('./pages/detail/detail').then((m) => m.Detail),
   },
   { path: '**', component: PageNotFound },

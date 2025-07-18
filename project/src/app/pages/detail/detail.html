@@ -1,4 +1,5 @@
-<main class="detail txt-primary">
+<main class="detail txt-primary" aria-labelledby="countryTitle">
+  <!-- Back button -->
   <a
     class="detail__back background--inner flex flex-row items-center justify-center gap-2"
     [routerLink]="['/']"
@@ -6,61 +7,87 @@
       filterByName: queryStore.filterByName(),
       filterByRegion: queryStore.filterByRegion(),
       page: queryStore.page(),
-    }">
-    <svg class="detail__icon" aria-label="icon toogle" role="img" aria-hidden="true">
+    }"
+    role="button"
+    aria-label="Go back to countries list">
+    <svg class="detail__icon" aria-hidden="true" focusable="false">
       <use href="assets/icons/sprite.svg#go-back"></use>
     </svg>
     <span>Go Back</span>
   </a>
+
   <div class="detail__body">
-    <img class="detail__flag" alt="" />
+    <!-- Flag image -->
+    <img
+      class="detail__flag"
+      [src]="country.flags.svg"
+      [alt]="'Flag of ' + country.name.common"
+      width="300"
+      height="200"
+      loading="lazy" />
+
+    <!-- Country content -->
     <div class="detail__country">
-      <h1 class="detail__name">Country</h1>
+      <h1 class="detail__name" id="countryTitle">
+        {{ country.name.common }}
+      </h1>
+
+      <!-- Info columns -->
       <div class="flex flex-col justify-between gap-2">
-        <ul class="detail__information flex flex-col gap-3">
+        <ul class="detail__information flex flex-col gap-3" aria-label="Country basic information">
           <li>
             <strong>Native Name:</strong>
-            Country
+            {{ nativeName }}
           </li>
           <li>
             <strong>Population:</strong>
-            3939393
+            {{ country.population | number }}
           </li>
           <li>
             <strong>Region:</strong>
-            Region
+            {{ country.region }}
           </li>
           <li>
             <strong>Sub Region:</strong>
-            Sub Region
+            {{ country.subregion }}
           </li>
           <li>
             <strong>Capital:</strong>
-            Capital
+            {{ country.capital?.join(', ') }}
           </li>
         </ul>
 
-        <ul class="detail__information flex flex-col gap-3">
+        <ul class="detail__information flex flex-col gap-3" aria-label="Country additional information">
           <li>
             <strong>Top Level Domain:</strong>
-            .be
+            {{ country.tld?.join(', ') }}
           </li>
           <li>
             <strong>Currencies:</strong>
-            Euro
+            {{ currencyList }}
           </li>
           <li>
             <strong>Languages:</strong>
-            Dutch, French, German
+            {{ languageList }}
           </li>
         </ul>
       </div>
+
+      <!-- Border countries -->
       <div class="detail__border flex flex-col gap-2">
         <h2 class="detail__border-countries">Border Countries:</h2>
-        <ul class="detail__borders flex flex-row items-center justify-between gap-1">
-          <li class="background--inner">France</li>
-          <li class="background--inner">Germany</li>
-          <li class="background--inner">Netherlands</li>
+        <ul
+          class="detail__borders flex flex-row items-center justify-start gap-1"
+          aria-label="List of border countries">
+          <li
+            class="background--inner"
+            *ngFor="let border of borderCountries"
+            (click)="navigateToCountry(border.cca3)"
+            (keydown.enter)="navigateToCountry(border.cca3)"
+            role="link"
+            tabindex="0">
+            {{ border.name }}
+          </li>
         </ul>
       </div>
     </div>
