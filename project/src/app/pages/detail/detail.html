@@ -1,3 +1,68 @@
-<main class="detail">
-  <h1>Detail</h1>
+<main class="detail txt-primary">
+  <a
+    class="detail__back background--inner flex flex-row items-center justify-center gap-2"
+    [routerLink]="['/']"
+    [queryParams]="{
+      filterByName: queryStore.filterByName(),
+      filterByRegion: queryStore.filterByRegion(),
+      page: queryStore.page(),
+    }">
+    <svg class="detail__icon" aria-label="icon toogle" role="img" aria-hidden="true">
+      <use href="assets/icons/sprite.svg#go-back"></use>
+    </svg>
+    <span>Go Back</span>
+  </a>
+  <div class="detail__body">
+    <img class="detail__flag" alt="" />
+    <div class="detail__country">
+      <h1 class="detail__name">Country</h1>
+      <div class="flex flex-col justify-between gap-2">
+        <ul class="detail__information flex flex-col gap-3">
+          <li>
+            <strong>Native Name:</strong>
+            Country
+          </li>
+          <li>
+            <strong>Population:</strong>
+            3939393
+          </li>
+          <li>
+            <strong>Region:</strong>
+            Region
+          </li>
+          <li>
+            <strong>Sub Region:</strong>
+            Sub Region
+          </li>
+          <li>
+            <strong>Capital:</strong>
+            Capital
+          </li>
+        </ul>
+
+        <ul class="detail__information flex flex-col gap-3">
+          <li>
+            <strong>Top Level Domain:</strong>
+            .be
+          </li>
+          <li>
+            <strong>Currencies:</strong>
+            Euro
+          </li>
+          <li>
+            <strong>Languages:</strong>
+            Dutch, French, German
+          </li>
+        </ul>
+      </div>
+      <div class="detail__border flex flex-col gap-2">
+        <h2 class="detail__border-countries">Border Countries:</h2>
+        <ul class="detail__borders flex flex-row items-center justify-between gap-1">
+          <li class="background--inner">France</li>
+          <li class="background--inner">Germany</li>
+          <li class="background--inner">Netherlands</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </main>

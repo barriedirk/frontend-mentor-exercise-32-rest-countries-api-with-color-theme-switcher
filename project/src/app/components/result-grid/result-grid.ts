@@ -10,12 +10,13 @@ import {
   OnInit,
 } from '@angular/core';
 
-import { ActivatedRoute, Router } from '@angular/router';
-
 import { CountryCard } from '@components/country-card/country-card';
 import { RestCountries } from '@services/restcountries';
 import { Country } from '@interfaces/country';
 import { FieldsSearch } from '@interfaces/fields-search';
+
+import { QuerySyncService } from '@services/query-sync';
+import { QuerySyncStore } from '@app/services/query-sync-store';
 
 @Component({
   selector: 'app-result-grid',
@@ -28,8 +29,8 @@ import { FieldsSearch } from '@interfaces/fields-search';
 export class ResultGrid implements OnInit {
   @Input() searchValues!: Signal<FieldsSearch>;
 
-  private route = inject(ActivatedRoute);
-  private router = inject(Router);
+  private queryStore = inject(QuerySyncStore);
+  private querySync = inject(QuerySyncService);
   private countriesService = inject(RestCountries);
 
   private allCountries = signal<Country[]>([]);
@@ -59,23 +60,17 @@ export class ResultGrid implements OnInit {
 
   constructor() {
     effect(() => {
-      this.searchValues();
+      const { filterByName, filterByRegion } = this.searchValues();
+
+      this.queryStore.filterByName.set(filterByName ?? '');
+      this.queryStore.filterByRegion.set(filterByRegion ?? '');
+
       this.currentPage.set(1);
-      // this.updateQueryParams({ filterByName, filterByRegion, page: 1 });
-      this.updateQueryParams({ page: 1 });
     });
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe((params) => {
-      const name = params['filterByName'] || '';
-      const region = params['filterByRegion'] || '';
-      const page = parseInt(params['page'], 10) || 1;
-
-      // this.currentPage.set(page);
-      // this.searchForm.setValue({ filterByName: name, filterByRegion: region }, { emitEvent: false });
-      // this.onFilter({ filterByName: name, filterByRegion: region });
-    });
+    this.querySync.bindSignal('page', this.currentPage);
 
     this.countriesService.fetchCountries().subscribe((data) => this.allCountries.set(data));
   }
@@ -83,30 +78,14 @@ export class ResultGrid implements OnInit {
   nextPage() {
     if (this.currentPage() < this.totalPages()) {
       this.currentPage.update((n) => n + 1);
-
-      this.updateQueryParams({
-        ...this.searchValues(),
-        page: this.currentPage(),
-      });
+      this.queryStore.page.set(this.currentPage());
     }
   }
 
   prevPage() {
     if (this.currentPage() > 1) {
       this.currentPage.update((n) => n - 1);
-
-      this.updateQueryParams({
-        ...this.searchValues(),
-        page: this.currentPage(),
-      });
+      this.queryStore.page.set(this.currentPage());
     }
-  }
-
-  updateQueryParams(params: { filterByName?: string; filterByRegion?: string; page?: number }) {
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: params,
-      queryParamsHandling: 'merge', // keeps existing params unless overwritten
-    });
   }
 }

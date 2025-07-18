@@ -7,7 +7,7 @@ import { Directive, ElementRef, Input, OnDestroy, AfterViewInit, Renderer2 } fro
 export class FadeInOnView implements AfterViewInit, OnDestroy {
   private observer!: IntersectionObserver;
 
-  @Input() fadeInDelay = 0; // optional stagger
+  @Input() fadeInDelay = 0;
 
   constructor(
     private el: ElementRef,

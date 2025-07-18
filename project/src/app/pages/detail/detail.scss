@@ -2,4 +2,76 @@
 
 .detail {
   @include max-container;
+  padding-inline: 15px;
+
+  &__icon {
+    width: 16px;
+    aspect-ratio: 1 / 1;
+  }
+
+  &__back {
+    @include text-preset-5(light);
+    width: 136px;
+    border-radius: 2px;
+  }
+
+  &__body {
+    margin-top: 64px;
+  }
+
+  &__flag {
+    width: 100%;
+    max-width: 569.78px;
+    aspect-ratio: 569.78 / 408;
+    background-color: red;
+    margin-bottom: 40px;
+  }
+
+  &__name {
+    @include text-preset-2;
+    margin-bottom: 16px;
+  }
+
+  &__border-countries {
+    @include text-preset-4(semibold);
+    margin-bottom: 5px;
+  }
+
+  &__information {
+    margin-bottom: 32px;
+
+    li {
+      @include text-preset-5(light);
+      line-height: 0;
+
+      strong {
+        @include text-preset-5(semibold);
+      }
+    }
+  }
+
+  &__borders {
+    li {
+      @include text-preset-6(light);
+      padding: 6px;
+      min-width: 96px;
+      text-align: center;
+    }
+  }
+
+  @media screen and (min-width: 48em) {
+    &__back {
+      @include text-preset-4(light);
+    }
+
+    &__name {
+      @include text-preset-1;
+    }
+
+    &__borders {
+      li {
+        @include text-preset-5(light);
+      }
+    }
+  }
 }

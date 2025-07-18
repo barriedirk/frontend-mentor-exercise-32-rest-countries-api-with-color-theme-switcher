@@ -5,6 +5,7 @@ import { Main } from './pages/main/main';
 
 export const routes: Routes = [
   { path: '', component: Main },
+  { path: 'search', component: Main },
   {
     path: 'detail/:id',
     loadComponent: () => import('./pages/detail/detail').then((m) => m.Detail),

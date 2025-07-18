@@ -6,6 +6,7 @@ import { FieldsSearch } from '@interfaces/fields-search';
 
 import { CustomSelectComponent } from '@components/custom-select/custom-select';
 import { Destroy } from '@services/destroy';
+import { QuerySyncService } from '@app/services/query-sync';
 
 @Component({
   selector: 'app-search-toolbar',
@@ -22,6 +23,8 @@ export class SearchToolbar implements OnInit {
 
   @Output() formChanged = new EventEmitter<FieldsSearch>();
 
+  private querySync = inject(QuerySyncService);
+
   regions: string[] = ['All', 'Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
   searchForm: FormGroup;
 
@@ -35,6 +38,8 @@ export class SearchToolbar implements OnInit {
   }
 
   ngOnInit() {
+    this.querySync.bindForm(this.searchForm, ['filterByName', 'filterByRegion']);
+
     this.searchForm.valueChanges.pipe(debounceTime(500), takeUntil(this.destroy$)).subscribe((formValues) => {
       this.formChanged.emit(formValues);
     });

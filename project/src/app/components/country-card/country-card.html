@@ -6,7 +6,8 @@
   <a
     class="country-card__link"
     [attr.aria-label]="'View details for ' + name"
-    [routerLink]="'/detail/' + cca3"
+    [routerLink]="['/detail/', cca3]"
+    [queryParamsHandling]="'preserve'"
     tabindex="0">
     <img class="country-card__flag" [alt]="alt" [src]="imageFlag" loading="lazy" />
 
