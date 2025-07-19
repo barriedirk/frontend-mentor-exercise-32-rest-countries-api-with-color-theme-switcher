@@ -3,9 +3,9 @@
     class="detail__back background--inner flex flex-row items-center justify-center gap-2"
     [routerLink]="['/']"
     [queryParams]="{
-      filterByName: queryStore.filterByName(),
-      filterByRegion: queryStore.filterByRegion(),
-      page: queryStore.page(),
+      filterByName: queryStore.filterByName() ?? '',
+      filterByRegion: queryStore.filterByRegion() ?? '',
+      page: queryStore.page() ?? 1,
     }"
     role="button"
     aria-label="Go back to countries list">
@@ -19,7 +19,7 @@
       <img
         class="detail__flag"
         [src]="country.flags.svg"
-        [alt]="'Flag of ' + country.name.common"
+        [alt]="country.flags.alt"
         width="300"
         height="200"
         loading="lazy" />
@@ -29,8 +29,7 @@
           {{ country.name.common }}
         </h1>
 
-        <!-- Info columns -->
-        <div class="flex flex-col justify-between gap-2">
+        <div class="flex flex-col gap-3 sm:flex-row sm:gap-28">
           <ul class="detail__information flex flex-col gap-3" aria-label="Country basic information">
             <li>
               <strong>Native Name:</strong>
@@ -71,10 +70,10 @@
         </div>
 
         <!-- Border countries -->
-        <div class="detail__border flex flex-col gap-2">
-          <h2 class="detail__border-countries">Border Countries:</h2>
+        <div class="detail__border flex flex-col gap-2 md:flex-row">
+          <h2 class="detail__border-countries shrink-0 grow-0 md:w-[150px]">Border Countries:</h2>
           <ul
-            class="detail__borders flex flex-row items-center justify-start gap-1"
+            class="detail__borders flex flex-row items-center justify-items-start"
             aria-label="List of border countries">
             @for (border of country.bordersWithCode; track border) {
               <li

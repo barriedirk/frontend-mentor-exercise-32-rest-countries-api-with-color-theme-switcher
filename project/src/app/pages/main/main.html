@@ -1,4 +1,4 @@
 <main class="main">
-  <app-search-toolbar [byName]="filterByName" [byRegion]="filterByRegion" (formChanged)="onFormChanged($event)" />
+  <app-search-toolbar (formChanged)="onFormChanged($event)" />
   <app-result-grid [searchValues]="searchValues" />
 </main>

@@ -34,7 +34,7 @@ export class ResultGrid implements OnInit {
   private countriesService = inject(RestCountries);
 
   private allCountries = signal<Country[]>([]);
-  currentPage = signal(1);
+  currentPage = signal(0);
   pageSize = 12;
 
   countries = computed(() => {
@@ -59,6 +59,10 @@ export class ResultGrid implements OnInit {
   });
 
   constructor() {
+    const page = this.queryStore.page() ?? 1;
+
+    this.currentPage.set(page);
+
     effect(() => {
       const { filterByName, filterByRegion } = this.searchValues();
 

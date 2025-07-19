@@ -7,6 +7,7 @@ import { FieldsSearch } from '@interfaces/fields-search';
 import { CustomSelectComponent } from '@components/custom-select/custom-select';
 import { Destroy } from '@services/destroy';
 import { QuerySyncService } from '@app/services/query-sync';
+import { QuerySyncStore } from '@app/services/query-sync-store';
 
 @Component({
   selector: 'app-search-toolbar',
@@ -18,12 +19,10 @@ import { QuerySyncService } from '@app/services/query-sync';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchToolbar implements OnInit {
-  @Input() byName: string = '';
-  @Input() byRegion: string = '';
-
   @Output() formChanged = new EventEmitter<FieldsSearch>();
 
   private querySync = inject(QuerySyncService);
+  private queryStore = inject(QuerySyncStore);
 
   regions: string[] = ['All', 'Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
   searchForm: FormGroup;
@@ -31,9 +30,12 @@ export class SearchToolbar implements OnInit {
   private destroy$ = inject(Destroy);
 
   constructor() {
+    const byName = this.queryStore.filterByName();
+    const byRegion = this.queryStore.filterByRegion();
+
     this.searchForm = new FormGroup({
-      filterByName: new FormControl(this.byName),
-      filterByRegion: new FormControl(this.byRegion),
+      filterByName: new FormControl(byName),
+      filterByRegion: new FormControl(byRegion === 'All' ? '' : byRegion),
     });
   }
 

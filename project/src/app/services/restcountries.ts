@@ -20,31 +20,35 @@ export class RestCountries {
       this.countriesSubject.asObservable().pipe(filter((data) => data !== null));
     }
 
-    return this.http.get<Country[]>(`${this.base}independent?status=true`).pipe(
-      map((apiArray) => apiArray.map(normalizeCountry)),
-      tap((countries) => {
-        this.ciocMap.clear();
+    return this.http
+      .get<Country[]>(`${this.base}all?fields=name,cioc,population,region,cca2,cca3,cioc,flags,capital`)
+      .pipe(
+        map((apiArray) => apiArray.map(normalizeCountry)),
+        tap((countries) => {
+          this.ciocMap.clear();
 
-        countries.forEach((country) => {
-          if (country.cioc) {
-            this.ciocMap.set(country.cioc, country.name.common);
-          }
-        });
-      }),
-      map((apiArray) => {
-        return apiArray.sort((a, b) => {
-          const nameA = a.name.common.toUpperCase();
-          const nameB = b.name.common.toUpperCase();
+          console.log({ countries });
 
-          if (nameA < nameB) return -1;
-          if (nameA > nameB) return 1;
+          countries.forEach((country) => {
+            if (country.cioc) {
+              this.ciocMap.set(country.cioc, country.name.common);
+            }
+          });
+        }),
+        map((apiArray) => {
+          return apiArray.sort((a, b) => {
+            const nameA = a.name.common.toUpperCase();
+            const nameB = b.name.common.toUpperCase();
 
-          return 0;
-        });
-      }),
+            if (nameA < nameB) return -1;
+            if (nameA > nameB) return 1;
 
-      tap((apiArray) => this.countriesSubject.next(apiArray)),
-    );
+            return 0;
+          });
+        }),
+
+        tap((apiArray) => this.countriesSubject.next(apiArray)),
+      );
   }
 
   fetchCountryByCCA3(cca3: string): Observable<CountryByCode> {

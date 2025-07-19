@@ -1,8 +1,10 @@
 @use '../../../sass/utils/mixins' as *;
 
 .detail {
-  @include max-container;
   padding-inline: 15px;
+  width: 100%;
+  margin-inline: auto;
+  max-width: 570px;
 
   &__icon {
     width: 16px;
@@ -17,6 +19,7 @@
 
   &__body {
     margin-top: 64px;
+    margin-bottom: 20px;
     opacity: 0;
     transform: translateY(10px);
     transition:
@@ -53,20 +56,26 @@
 
     li {
       @include text-preset-5(light);
-      line-height: 0;
+      line-height: 1.5;
 
       strong {
         @include text-preset-5(semibold);
+        white-space: nowrap;
       }
     }
   }
 
   &__borders {
+    flex-wrap: wrap;
+    gap: 26px;
+    row-gap: 10px;
+
     li {
       @include text-preset-6(light);
-      padding: 6px;
+      padding: 6px 10px;
       min-width: 96px;
       text-align: center;
+      cursor: pointer;
     }
   }
 
@@ -83,6 +92,21 @@
       li {
         @include text-preset-5(light);
       }
+    }
+  }
+
+  @media screen and (min-width: 78em) {
+    max-width: 1278px;
+
+    &__body {
+      display: flex;
+      flex-direction: row;
+      gap: 80px;
+      justify-content: space-between;
+    }
+
+    &__country {
+      max-width: 598px;
     }
   }
 }

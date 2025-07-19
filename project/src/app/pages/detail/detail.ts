@@ -28,10 +28,6 @@ export class Detail implements OnInit {
   country = signal<CountryByCode | null>(null);
   borderCountries: { cca3: string; name: string }[] = [];
 
-  filterByName = '';
-  filterByRegion = '';
-  page = 1;
-
   ngOnInit() {
     const routeParams = this.route.snapshot.params;
 
@@ -75,9 +71,9 @@ export class Detail implements OnInit {
   navigateToCountry(cioc: string) {
     this.router.navigate(['/detail', cioc], {
       queryParams: {
-        filterByName: this.filterByName,
-        filterByRegion: this.filterByRegion,
-        page: this.page,
+        filterByName: this.queryStore.filterByName() ?? '',
+        filterByRegion: this.queryStore.filterByRegion() ?? '',
+        page: this.queryStore.page() ?? 1,
       },
       replaceUrl: true,
     });

@@ -3,12 +3,12 @@
     <app-country-card
       class="result-grid__card"
       [cca3]="country.cca3"
-      [alt]="country.flags.alt ?? ''"
+      [alt]="country.flags.alt"
       [imageFlag]="country.flags.svg"
       [name]="country.name.common"
       [population]="country.population"
       [region]="country.region"
-      [capital]="country.capital[0]" />
+      [capital]="country.capital.join(', ')" />
   } @empty {
     <div class="result-grid__empty background--inner txt-primary flex flex-col items-center justify-center">
       <svg class="icon" aria-hidden="true">
