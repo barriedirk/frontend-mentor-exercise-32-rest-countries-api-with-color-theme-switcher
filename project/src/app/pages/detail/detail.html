@@ -1,5 +1,4 @@
 <main class="detail txt-primary" aria-labelledby="countryTitle">
-  <!-- Back button -->
   <a
     class="detail__back background--inner flex flex-row items-center justify-center gap-2"
     [routerLink]="['/']"
@@ -15,81 +14,83 @@
     </svg>
     <span>Go Back</span>
   </a>
+  @if (country(); as country) {
+    <div class="detail__body" appFadeInOnView>
+      <img
+        class="detail__flag"
+        [src]="country.flags.svg"
+        [alt]="'Flag of ' + country.name.common"
+        width="300"
+        height="200"
+        loading="lazy" />
 
-  <div class="detail__body">
-    <!-- Flag image -->
-    <img
-      class="detail__flag"
-      [src]="country.flags.svg"
-      [alt]="'Flag of ' + country.name.common"
-      width="300"
-      height="200"
-      loading="lazy" />
+      <div class="detail__country">
+        <h1 class="detail__name" id="countryTitle">
+          {{ country.name.common }}
+        </h1>
 
-    <!-- Country content -->
-    <div class="detail__country">
-      <h1 class="detail__name" id="countryTitle">
-        {{ country.name.common }}
-      </h1>
+        <!-- Info columns -->
+        <div class="flex flex-col justify-between gap-2">
+          <ul class="detail__information flex flex-col gap-3" aria-label="Country basic information">
+            <li>
+              <strong>Native Name:</strong>
+              {{ nativeName() }}
+            </li>
+            <li>
+              <strong>Population:</strong>
+              {{ country.population | number }}
+            </li>
+            <li>
+              <strong>Region:</strong>
+              {{ country.region }}
+            </li>
+            <li>
+              <strong>Sub Region:</strong>
+              {{ country.subregion }}
+            </li>
+            <li>
+              <strong>Capital:</strong>
+              {{ country.capital.join(', ') }}
+            </li>
+          </ul>
 
-      <!-- Info columns -->
-      <div class="flex flex-col justify-between gap-2">
-        <ul class="detail__information flex flex-col gap-3" aria-label="Country basic information">
-          <li>
-            <strong>Native Name:</strong>
-            {{ nativeName }}
-          </li>
-          <li>
-            <strong>Population:</strong>
-            {{ country.population | number }}
-          </li>
-          <li>
-            <strong>Region:</strong>
-            {{ country.region }}
-          </li>
-          <li>
-            <strong>Sub Region:</strong>
-            {{ country.subregion }}
-          </li>
-          <li>
-            <strong>Capital:</strong>
-            {{ country.capital?.join(', ') }}
-          </li>
-        </ul>
+          <ul class="detail__information flex flex-col gap-3" aria-label="Country additional information">
+            <li>
+              <strong>Top Level Domain:</strong>
+              {{ country.tld.join(', ') }}
+            </li>
+            <li>
+              <strong>Currencies:</strong>
+              {{ currencyList() }}
+            </li>
+            <li>
+              <strong>Languages:</strong>
+              {{ languageList() }}
+            </li>
+          </ul>
+        </div>
 
-        <ul class="detail__information flex flex-col gap-3" aria-label="Country additional information">
-          <li>
-            <strong>Top Level Domain:</strong>
-            {{ country.tld?.join(', ') }}
-          </li>
-          <li>
-            <strong>Currencies:</strong>
-            {{ currencyList }}
-          </li>
-          <li>
-            <strong>Languages:</strong>
-            {{ languageList }}
-          </li>
-        </ul>
-      </div>
-
-      <!-- Border countries -->
-      <div class="detail__border flex flex-col gap-2">
-        <h2 class="detail__border-countries">Border Countries:</h2>
-        <ul
-          class="detail__borders flex flex-row items-center justify-start gap-1"
-          aria-label="List of border countries">
-          <li
-            class="background--inner"
-            *ngFor="let border of borderCountries"
-            (click)="navigateToCountry(border.cca3)"
-            (keydown.enter)="navigateToCountry(border.cca3)"
-            role="link"
-            tabindex="0">
-            {{ border.name }}
-          </li>
-        </ul>
+        <!-- Border countries -->
+        <div class="detail__border flex flex-col gap-2">
+          <h2 class="detail__border-countries">Border Countries:</h2>
+          <ul
+            class="detail__borders flex flex-row items-center justify-start gap-1"
+            aria-label="List of border countries">
+            @for (border of country.bordersWithCode; track border) {
+              <li
+                class="background--inner"
+                (click)="navigateToCountry(border.coic)"
+                (keydown.enter)="navigateToCountry(border.coic)"
+                role="link"
+                tabindex="0">
+                {{ border.name }}
+              </li>
+            }
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
+  } @else {
+    <h1>Loading ...</h1>
+  }
 </main>

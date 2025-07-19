@@ -17,13 +17,24 @@
 
   &__body {
     margin-top: 64px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition:
+      opacity 0.6s ease,
+      transform 0.6s ease;
+    will-change: opacity, transform;
+
+    &.fade-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   &__flag {
     width: 100%;
     max-width: 569.78px;
     aspect-ratio: 569.78 / 408;
-    background-color: red;
+    background-color: transparent;
     margin-bottom: 40px;
   }
 
