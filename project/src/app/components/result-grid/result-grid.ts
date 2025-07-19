@@ -52,24 +52,26 @@ export class ResultGrid implements OnInit {
   totalPages = computed(() => Math.ceil(this.countries().length / this.pageSize));
 
   pagedCountries = computed(() => {
-    const start = (this.currentPage() - 1) * this.pageSize;
+    const currentPage = this.currentPage() > 0 ? this.currentPage() : 1;
+
+    const start = (currentPage - 1) * this.pageSize;
     const end = start + this.pageSize;
 
     return this.countries().slice(start, end);
   });
 
   constructor() {
-    const page = this.queryStore.page() ?? 1;
-
-    this.currentPage.set(page);
-
     effect(() => {
       const { filterByName, filterByRegion } = this.searchValues();
 
-      this.queryStore.filterByName.set(filterByName ?? '');
-      this.queryStore.filterByRegion.set(filterByRegion ?? '');
+      this.queryStore.filterByName.set(filterByName || '');
+      this.queryStore.filterByRegion.set(filterByRegion || '');
 
-      this.currentPage.set(1);
+      if (this.currentPage() === 0) {
+        const page = Number(this.queryStore.page()) || 1;
+
+        this.currentPage.set(page ?? 1);
+      }
     });
   }
 
@@ -81,15 +83,23 @@ export class ResultGrid implements OnInit {
 
   nextPage() {
     if (this.currentPage() < this.totalPages()) {
-      this.currentPage.update((n) => n + 1);
+      this.currentPage.update((n) => +n + 1);
       this.queryStore.page.set(this.currentPage());
     }
   }
 
   prevPage() {
     if (this.currentPage() > 1) {
-      this.currentPage.update((n) => n - 1);
+      this.currentPage.update((n) => +n - 1);
       this.queryStore.page.set(this.currentPage());
     }
+  }
+
+  reset() {
+    this.queryStore.filterByName.set('');
+    this.queryStore.filterByRegion.set('');
+    this.queryStore.page.set(1);
+
+    this.currentPage.update(() => 1);
   }
 }

@@ -3,9 +3,9 @@
     class="detail__back background--inner flex flex-row items-center justify-center gap-2"
     [routerLink]="['/']"
     [queryParams]="{
-      filterByName: queryStore.filterByName() ?? '',
-      filterByRegion: queryStore.filterByRegion() ?? '',
-      page: queryStore.page() ?? 1,
+      filterByName: queryStore.filterByName() || '',
+      filterByRegion: queryStore.filterByRegion() || '',
+      page: queryStore.page() || 1,
     }"
     role="button"
     aria-label="Go back to countries list">
