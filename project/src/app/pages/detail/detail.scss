@@ -35,8 +35,9 @@
 
   &__flag {
     width: 100%;
+    height: auto;
+    border-radius: 5px;
     max-width: 569.78px;
-    aspect-ratio: 569.78 / 408;
     background-color: transparent;
     margin-bottom: 40px;
   }
@@ -68,7 +69,7 @@
   &__borders {
     flex-wrap: wrap;
     gap: 26px;
-    row-gap: 10px;
+    row-gap: 20px;
 
     li {
       @include text-preset-6(light);
@@ -79,6 +80,10 @@
     }
   }
 
+  @media screen and (min-width: 25em) {
+    padding-inline: 30px;
+  }
+
   @media screen and (min-width: 48em) {
     &__back {
       @include text-preset-4(light);
@@ -86,11 +91,26 @@
 
     &__name {
       @include text-preset-1;
+      margin-bottom: 40px;
     }
 
     &__borders {
       li {
-        @include text-preset-5(light);
+        @include text-preset-4(light);
+
+        strong {
+          @include text-preset-4(semibold);
+        }
+      }
+    }
+
+    &__flag {
+      margin-bottom: 65px;
+    }
+
+    &__information {
+      li {
+        @include text-preset-4(light);
       }
     }
   }

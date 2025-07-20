@@ -18,6 +18,7 @@ import { FieldsSearch } from '@interfaces/fields-search';
 import { QuerySyncService } from '@services/query-sync';
 import { QuerySyncStore } from '@app/services/query-sync-store';
 import { JsonPipe } from '@angular/common';
+import { LoadingService } from '@app/services/loading';
 
 @Component({
   selector: 'app-result-grid',
@@ -30,11 +31,14 @@ import { JsonPipe } from '@angular/common';
 export class ResultGrid implements OnInit {
   @Input() searchValues!: Signal<FieldsSearch>;
 
+  private loadingService = inject(LoadingService);
   private queryStore = inject(QuerySyncStore);
   private querySync = inject(QuerySyncService);
   private countriesService = inject(RestCountries);
-
   private allCountries = signal<Country[]>([]);
+
+  loading = this.loadingService.loading;
+
   currentPage = signal(0);
   pageSize = 12;
 

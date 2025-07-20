@@ -22,6 +22,10 @@
     white-space: nowrap;
   }
 
+  @media screen and (min-width: 48em) {
+    padding-inline: 40px;
+  }
+
   @media screen and (min-width: 50em) {
     &__title {
       @include text-preset-2;

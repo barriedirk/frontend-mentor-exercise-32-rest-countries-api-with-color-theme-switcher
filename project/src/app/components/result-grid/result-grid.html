@@ -1,40 +1,49 @@
-<div class="result-grid" [class.columns]="pagedCountries().length > 0">
-  @for (country of pagedCountries(); track country.name) {
-    <app-country-card
-      class="result-grid__card"
-      [cca3]="country.cca3"
-      [alt]="country.flags.alt"
-      [imageFlag]="country.flags.svg"
-      [name]="country.name.common"
-      [population]="country.population"
-      [region]="country.region"
-      [capital]="country.capital.join(', ')" />
-  } @empty {
-    <div class="result-grid__empty background--inner txt-primary flex flex-col items-center justify-center">
-      <svg class="icon" aria-hidden="true">
-        <use href="assets/icons/sprite.svg#search" />
-      </svg>
-      <h2 class="text-preset-2 txt-primary mb-5">🤔 No results found.</h2>
-      <ul class="text-preset-4 light txt-primary flex flex-col gap-1">
-        <li>Check for typos in the country name.</li>
-        <li>Try searching by a different region.</li>
-        <li>
-          <a class="cursor-pointer underline" (click)="reset()">Reset</a>
-          the filters to view all countries.
-        </li>
-      </ul>
-    </div>
-  }
-</div>
+@if (loading()) {
+  <div class="result-grid__loading flex flex-col items-center justify-center">
+    <span class="loader"></span>
+  </div>
+} @else {
+  <div class="result-grid" [class.columns]="pagedCountries().length > 0">
+    @for (country of pagedCountries(); track country.name) {
+      <app-country-card
+        class="result-grid__card"
+        [cca3]="country.cca3"
+        [alt]="country.flags.alt"
+        [imageFlag]="country.flags.svg"
+        [name]="country.name.common"
+        [population]="country.population"
+        [region]="country.region"
+        [capital]="country.capital.join(', ')" />
+    } @empty {
+      <div class="result-grid__empty background--inner txt-primary flex flex-col items-center justify-center">
+        <svg class="icon" aria-hidden="true">
+          <use href="assets/icons/sprite.svg#search" />
+        </svg>
+        <h2 class="text-preset-2 txt-primary mb-5">🤔 No results found.</h2>
+        <ul class="text-preset-4 light txt-primary flex flex-col gap-1">
+          <li>Check for typos in the country name.</li>
+          <li>Try searching by a different region.</li>
+          <li>
+            <a class="cursor-pointer underline" (click)="reset()">Reset</a>
+            the filters to view all countries.
+          </li>
+        </ul>
+      </div>
+    }
+  </div>
 
-@if (pagedCountries().length > 0) {
-  <nav class="result-grid__pagination txt-primary flex flex-row items-center justify-center gap-5 p-2">
-    <button class="background--inner p-4 drop-shadow" [disabled]="currentPage() === 1" (click)="prevPage()">
-      Previous
-    </button>
-    <span>Page {{ currentPage() }} of {{ totalPages() }}</span>
-    <button class="background--inner p-4 drop-shadow" [disabled]="currentPage() === totalPages()" (click)="nextPage()">
-      Next
-    </button>
-  </nav>
+  @if (pagedCountries().length > 0) {
+    <nav class="result-grid__pagination txt-primary flex flex-row items-center justify-center gap-5 p-2">
+      <button class="background--inner p-4 drop-shadow" [disabled]="currentPage() === 1" (click)="prevPage()">
+        Previous
+      </button>
+      <span>Page {{ currentPage() }} of {{ totalPages() }}</span>
+      <button
+        class="background--inner p-4 drop-shadow"
+        [disabled]="currentPage() === totalPages()"
+        (click)="nextPage()">
+        Next
+      </button>
+    </nav>
+  }
 }
