@@ -7,3 +7,7 @@
 @use './utils/form';
 
 @use './themes/theme';
+
+button:disabled {
+  opacity: 0.4;
+}

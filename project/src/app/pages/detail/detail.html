@@ -1,12 +1,8 @@
 <main class="detail txt-primary" aria-labelledby="countryTitle">
   <a
-    class="detail__back background--inner flex flex-row items-center justify-center gap-2"
+    class="detail__back background--inner flex flex-row items-center justify-center gap-2 drop-shadow"
     [routerLink]="['/']"
-    [queryParams]="{
-      filterByName: queryStore.filterByName() || '',
-      filterByRegion: queryStore.filterByRegion() || '',
-      page: queryStore.page() || 1,
-    }"
+    [queryParamsHandling]="'preserve'"
     role="button"
     aria-label="Go back to countries list">
     <svg class="detail__icon" aria-hidden="true" focusable="false">
@@ -77,7 +73,7 @@
             aria-label="List of border countries">
             @for (border of country.bordersWithCode; track border) {
               <li
-                class="background--inner"
+                class="background--inner drop-shadow"
                 (click)="navigateToCountry(border.coic)"
                 (keydown.enter)="navigateToCountry(border.coic)"
                 role="link"

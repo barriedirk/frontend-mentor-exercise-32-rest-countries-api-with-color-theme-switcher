@@ -75,6 +75,7 @@ export class Detail implements OnInit {
         filterByRegion: this.queryStore.filterByRegion() ?? '',
         page: this.queryStore.page() ?? 1,
       },
+      queryParamsHandling: 'merge',
       replaceUrl: true,
     });
 

@@ -7,6 +7,7 @@
     opacity 0.6s ease,
     transform 0.6s ease;
   will-change: opacity, transform;
+  box-shadow: var(--box-shadow);
 
   &.fade-in {
     opacity: 1;

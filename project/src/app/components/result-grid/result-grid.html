@@ -29,8 +29,12 @@
 
 @if (pagedCountries().length > 0) {
   <nav class="result-grid__pagination txt-primary flex flex-row items-center justify-center gap-5 p-2">
-    <button class="background--inner p-4" [disabled]="currentPage() === 1" (click)="prevPage()">Previous</button>
+    <button class="background--inner p-4 drop-shadow" [disabled]="currentPage() === 1" (click)="prevPage()">
+      Previous
+    </button>
     <span>Page {{ currentPage() }} of {{ totalPages() }}</span>
-    <button class="background--inner p-4" [disabled]="currentPage() === totalPages()" (click)="nextPage()">Next</button>
+    <button class="background--inner p-4 drop-shadow" [disabled]="currentPage() === totalPages()" (click)="nextPage()">
+      Next
+    </button>
   </nav>
 }

@@ -79,3 +79,11 @@
 .underline {
   text-decoration: underline;
 }
+
+.drop-shadow {
+  box-shadow: var(--box-shadow);
+}
+
+.drop-shadow-bottom {
+  box-shadow: var(--box-shadow-bottom);
+}

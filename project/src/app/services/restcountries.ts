@@ -27,8 +27,6 @@ export class RestCountries {
         tap((countries) => {
           this.ciocMap.clear();
 
-          console.log({ countries });
-
           countries.forEach((country) => {
             if (country.cioc) {
               this.ciocMap.set(country.cioc, country.name.common);

@@ -43,6 +43,9 @@ export class SearchToolbar implements OnInit {
     this.querySync.bindForm(this.searchForm, ['filterByName', 'filterByRegion']);
 
     this.searchForm.valueChanges.pipe(debounceTime(500), takeUntil(this.destroy$)).subscribe((formValues) => {
+      this.queryStore.filterByName.set(formValues.filterByName);
+      this.queryStore.filterByRegion.set(formValues.filterByRegion);
+
       this.formChanged.emit(formValues);
     });
   }

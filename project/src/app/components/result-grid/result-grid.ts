@@ -17,11 +17,12 @@ import { FieldsSearch } from '@interfaces/fields-search';
 
 import { QuerySyncService } from '@services/query-sync';
 import { QuerySyncStore } from '@app/services/query-sync-store';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-result-grid',
   standalone: true,
-  imports: [CountryCard],
+  imports: [CountryCard, JsonPipe],
   templateUrl: './result-grid.html',
   styleUrl: './result-grid.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -41,7 +42,7 @@ export class ResultGrid implements OnInit {
     const { filterByName, filterByRegion } = this.searchValues();
 
     return this.allCountries().filter((country) => {
-      const matchesRegion = !filterByRegion || country.region === filterByRegion;
+      const matchesRegion = !filterByRegion || country.region.trim() === filterByRegion.trim();
       const matchesName =
         !filterByName || country.name.common.toLowerCase().startsWith(filterByName.trim().toLowerCase());
 
@@ -61,21 +62,36 @@ export class ResultGrid implements OnInit {
   });
 
   constructor() {
+    let isFirstRun = true;
+
     effect(() => {
       const { filterByName, filterByRegion } = this.searchValues();
 
-      this.queryStore.filterByName.set(filterByName || '');
-      this.queryStore.filterByRegion.set(filterByRegion || '');
-
-      if (this.currentPage() === 0) {
-        const page = Number(this.queryStore.page()) || 1;
-
-        this.currentPage.set(page ?? 1);
+      if (isFirstRun) {
+        isFirstRun = false;
+        return;
       }
+
+      this.currentPage.set(1);
     });
   }
 
   ngOnInit() {
+    const { filterByName, filterByRegion } = this.searchValues();
+
+    this.queryStore.filterByName.set(filterByName || '');
+    this.queryStore.filterByRegion.set(filterByRegion || '');
+
+    if (this.currentPage() === 0) {
+      const page = Number(this.queryStore.page()) || 1;
+
+      console.log({ page });
+
+      this.currentPage.set(page ?? 1);
+    } else {
+      this.currentPage.set(1);
+    }
+
     this.querySync.bindSignal('page', this.currentPage);
 
     this.countriesService.fetchCountries().subscribe((data) => this.allCountries.set(data));

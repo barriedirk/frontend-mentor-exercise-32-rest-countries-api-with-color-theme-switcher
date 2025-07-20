@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+
+import { ThemeService } from '@services/theme';
 
 @Component({
   selector: 'app-header',
@@ -9,8 +11,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
-  onToggle() {
-    //@todo, implement
-    console.log('@todo');
+  private themeService = inject(ThemeService);
+
+  currentTheme = computed(() => this.themeService.currentTheme());
+
+  toggle() {
+    this.themeService.toggleTheme();
   }
 }
