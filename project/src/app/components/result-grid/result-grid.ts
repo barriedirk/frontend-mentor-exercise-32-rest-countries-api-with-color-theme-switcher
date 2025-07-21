@@ -17,13 +17,12 @@ import { FieldsSearch } from '@interfaces/fields-search';
 
 import { QuerySyncService } from '@services/query-sync';
 import { QuerySyncStore } from '@app/services/query-sync-store';
-import { JsonPipe } from '@angular/common';
 import { LoadingService } from '@app/services/loading';
 
 @Component({
   selector: 'app-result-grid',
   standalone: true,
-  imports: [CountryCard, JsonPipe],
+  imports: [CountryCard],
   templateUrl: './result-grid.html',
   styleUrl: './result-grid.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

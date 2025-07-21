@@ -9,7 +9,12 @@
     [routerLink]="['/detail/', cca3]"
     [queryParamsHandling]="'preserve'"
     tabindex="0">
-    <img class="country-card__flag" [alt]="alt" [src]="imageFlag" loading="lazy" />
+    <img
+      class="country-card__flag"
+      [style]="'view-transition-name: image-' + cca3"
+      [alt]="alt"
+      [src]="imageFlag"
+      loading="lazy" />
 
     <div class="country-card__body">
       <h2 class="country-card__name" [id]="name + '-heading'">{{ name }}</h2>

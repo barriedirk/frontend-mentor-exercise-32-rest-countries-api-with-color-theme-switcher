@@ -83,12 +83,9 @@
 
   @media screen and (min-width: 48em) {
     padding: 50px 30px;
-  }
 
-  @media screen and (min-width: 48em) {
     &.columns {
       gap: 47px;
-      // row-gap: 40px;
     }
   }
 }
